@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #c65d32;
+  --primary-dark: #a94b26;
+  --primary-light: #f3e4dc;
+
+  --dark: #24201d;
+  --dark-soft: #342e2a;
+
+  --cream: #faf7f3;
+  --surface: #ffffff;
+  --surface-soft: #f5f0eb;
+
+  --text: #24201d;
+  --muted: #756f69;
+
+  --border: #e7ded5;
+
+  --whatsapp: #16845b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: #f0d2c3;
+  color: #5c2818;
+}
+.site-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .site-container {
+    max-width: 1800px;
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+}

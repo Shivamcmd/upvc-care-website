@@ -71,7 +71,7 @@ function WhyChooseUs() {
           {/* Image */}
           <div className="relative min-h-[300px] overflow-hidden rounded-2xl bg-blue-100">
             <img
-              src="/src/images/photo-7.png"
+              src={photo7}
               alt="UPVC window technician providing repair service"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"

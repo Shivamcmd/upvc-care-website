@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 
 import Footer from "./footer"
 import MobileCTA from "./MobileCTA"
-import Navbar from "./navbar"
+import Navbar from "./Navbar"
 
 
 function Layout() {

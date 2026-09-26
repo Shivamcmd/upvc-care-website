@@ -1,3 +1,5 @@
+import heroImage from "../images/home ban.png";
+
 function Hero() {
   return (
     <section className="overflow-hidden bg-white">
@@ -67,11 +69,11 @@ function Hero() {
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-50 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-lg">
-            <img
-              src="/src/images/home ban.png"
-              alt="UPVC window and door repair service"
-              className="aspect-[4/3] w-full object-cover"
-            />
+          <img
+  src={heroImage}
+  alt="UPVC window and door repair service"
+  className="aspect-[4/3] w-full object-cover"
+/>
           </div>
 
           {/* Floating card */}

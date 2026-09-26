@@ -1,3 +1,4 @@
+import photo7 from "../images/photo-7.png"
 const benefits = [
   {
     number: "01",

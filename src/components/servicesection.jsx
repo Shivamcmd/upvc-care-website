@@ -1,46 +1,53 @@
 import ServiceCard from "./servicecard"
 
+import photo1 from "../images/photo-1.png"
+import photo2 from "../images/photo-2.png"
+import photo3 from "../images/photo-3.png"
+import photo4 from "../images/photo-4.png"
+import photo5 from "../images/photo-5.png"
+import photo6 from "../images/photo-6.png"
+
 const services = [
   {
     title: "UPVC Window Repair",
     description:
       "Fix common window problems including faulty handles, locks, rollers, alignment and difficult operation.",
-    image: "/src/images/photo-1.png",
+    image: photo1,
     href: "/services/upvc-window-repair",
   },
   {
     title: "UPVC Door Repair",
     description:
       "Repair UPVC doors with problems related to locks, handles, hinges, alignment and closing.",
-    image: "/src/images/photo-2.png",
+    image: photo2,
     href: "/services/upvc-door-repair",
   },
   {
     title: "UPVC Window Installation",
     description:
       "Professional installation for new UPVC windows in homes, offices and other properties.",
-    image: "/src/images/photo-3.png",
+    image: photo3,
     href: "/services/upvc-window-installation",
   },
   {
     title: "UPVC Glass Replacement",
     description:
       "Replace cracked or damaged window glass while keeping the existing UPVC frame where suitable.",
-    image: "/src/images/photo-4.png",
+    image: photo4,
     href: "/services/upvc-glass-replacement",
   },
   {
     title: "Hardware Replacement",
     description:
       "Replace worn or damaged handles, locks, rollers, hinges and other compatible UPVC hardware.",
-    image: "/src/images/photo-5.png",
+    image: photo5,
     href: "/services/upvc-hardware-replacement",
   },
   {
     title: "UPVC Maintenance",
     description:
       "Keep windows and doors operating smoothly with inspection, adjustment and routine maintenance.",
-    image: "/src/images/photo-6.png",
+    image: photo6,
     href: "/services/upvc-maintenance",
   },
 ]

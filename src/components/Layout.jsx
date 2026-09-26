@@ -4,6 +4,7 @@ import Footer from "./footer"
 import MobileCTA from "./MobileCTA"
 import Navbar from "./navbar"
 
+
 function Layout() {
   return (
     <div className="min-h-screen bg-white">

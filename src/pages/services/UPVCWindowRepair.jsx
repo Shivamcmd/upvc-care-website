@@ -53,7 +53,7 @@ function UPVCwindowRepair() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
             <img
-              src="/src/images/photo-1.png"
+              src="/src/images/photo1.png"
               alt="UPVC door repair service"
               className="aspect-[4/3] w-full object-cover"
             />

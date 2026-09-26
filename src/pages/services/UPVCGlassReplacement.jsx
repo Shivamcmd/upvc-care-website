@@ -45,7 +45,7 @@ function UPVCGlassReplacement() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="/src/images/photo-4.png"
+              src="/src/images/photo4.png"
               alt="UPVC window glass replacement service"
               className="aspect-[4/3] w-full object-cover"
             />

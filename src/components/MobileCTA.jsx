@@ -2,7 +2,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 function MobileCTA() {
   return (
-    <div className="fixed bottom-6 left-0 right-0 z-50 flex border-t border-slate-200 bg-white p-2 shadow-[0_-4px_15px_rgba(0,0,0,0.08)] lg:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-slate-200 bg-white p-2 shadow-[0_-4px_15px_rgba(0,0,0,0.08)] lg:hidden">
       <a
         href="tel:+918708238671"
         className="flex flex-1 items-center justify-center rounded-lg bg-blue-600 px-2 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700"
@@ -20,7 +20,6 @@ function MobileCTA() {
   WhatsApp
 </a>
     </div>
-  )
-}
+  )}
 
 export default MobileCTA

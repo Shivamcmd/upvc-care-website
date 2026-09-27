@@ -1,5 +1,12 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Phone,
+  Mail,
+  MapPin,
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const services = [
   {
@@ -26,7 +33,7 @@ const services = [
     label: "UPVC Maintenance",
     href: "/services/upvc-maintenance",
   },
-]
+];
 
 const problems = [
   {
@@ -53,7 +60,7 @@ const problems = [
     label: "Dust & Draft",
     href: "/problems/dust-draft",
   },
-]
+];
 
 const quickLinks = [
   {
@@ -76,7 +83,7 @@ const quickLinks = [
     label: "Get a Quote",
     href: "/contact",
   },
-]
+];
 
 function FooterDropdown({ title, children, open, onClick }) {
   return (
@@ -110,17 +117,17 @@ function FooterDropdown({ title, children, open, onClick }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function Footer() {
-  const [openSection, setOpenSection] = useState(null)
+  const [openSection, setOpenSection] = useState(null);
 
   const toggleSection = (section) => {
     setOpenSection((current) =>
       current === section ? null : section
-    )
-  }
+    );
+  };
 
   return (
     <footer className="bg-slate-950 pb-20 text-slate-300 lg:pb-0">
@@ -163,23 +170,44 @@ function Footer() {
                 installation and maintenance services.
               </p>
 
-              <div className="mt-5 space-y-2">
+              {/* Quick Contact */}
+              <div className="mt-5 space-y-3">
 
+                {/* Phone */}
                 <a
                   href="tel:+918708238671"
-                  className="block text-sm font-semibold text-white transition hover:text-blue-400"
+                  className="flex items-center gap-2.5 text-sm font-semibold text-white transition hover:text-blue-400"
                 >
-                  +91 8708238671
+                  <Phone
+                    size={16}
+                    strokeWidth={2}
+                    className="shrink-0 text-blue-400"
+                  />
+
+                  <span>
+                    +91 8708238671
+                  </span>
                 </a>
 
+                {/* WhatsApp */}
                 <a
-                  href="https://wa.me/8708238671"
+                  href="https://wa.me/918708238671"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-semibold text-blue-400 transition hover:text-blue-300"
+                  className="inline-flex items-center gap-2.5 text-xs font-semibold text-green-400 transition hover:text-green-300"
                 >
-                  WhatsApp us
-                  <span>→</span>
+                  <FaWhatsapp
+                    size={17}
+                    className="shrink-0"
+                  />
+
+                  <span>
+                    WhatsApp us
+                  </span>
+
+                  <span>
+                    →
+                  </span>
                 </a>
 
               </div>
@@ -212,8 +240,6 @@ function Footer() {
             </div>
 
 
-        
-
             {/* =================================================
                 DESKTOP QUICK LINKS
             ================================================= */}
@@ -244,42 +270,99 @@ function Footer() {
 
               </ul>
             </div>
-{/* =================================================
-    DESKTOP CONTACT
-================================================= */}
-<div className="hidden lg:block">
 
-  <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-white">
-    Contact
-  </h3>
 
-  <div className="mt-4 space-y-3">
+            {/* =================================================
+                DESKTOP CONTACT
+            ================================================= */}
+            <div className="hidden lg:block">
 
-    <a
-      href="tel:+919758927171"
-      className="block text-sm text-slate-400 transition hover:text-blue-400"
-    >
-      +91 9758927171
-    </a>
+              <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-white">
+                Contact
+              </h3>
 
-    <a
-      href="mailto:info@upvcCare.in"
-      className="block break-all text-sm text-slate-400 transition hover:text-blue-400"
-    >
-       info@UPVCCare.in
-    </a>
+              <div className="mt-4 space-y-3.5">
 
-    <p className="text-sm leading-6 text-slate-400">
-      Noida • Greater Noida • Ghaziabad • Delhi NCR
-    </p>
+                {/* Phone */}
+                <a
+                  href="tel:+918708238671"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-blue-400"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <Phone
+                      size={15}
+                      strokeWidth={2}
+                    />
+                  </span>
 
-    <p className="text-sm text-slate-400">
-      Mon–Sun, 9 AM – 8 PM
-    </p>
+                  <span>
+                    +91 8708238671
+                  </span>
+                </a>
 
-  </div>
+                {/* Email */}
+                <a
+                  href="mailto:daudayalpandey95@gmail.com"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-blue-400"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <Mail
+                      size={15}
+                      strokeWidth={2}
+                    />
+                  </span>
 
-</div>
+                  <span className="break-all">
+                    daudayalpandey95@gmail.com
+                  </span>
+                </a>
+
+                {/* WhatsApp */}
+                <a
+                  href="https://wa.me/918708238671"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-green-400"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-green-400">
+                    <FaWhatsapp size={17} />
+                  </span>
+
+                  <span>
+                    WhatsApp us
+                  </span>
+                </a>
+
+                {/* Service Area */}
+                <div className="flex items-start gap-3 text-sm text-slate-400">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <MapPin
+                      size={15}
+                      strokeWidth={2}
+                    />
+                  </span>
+
+                  <span className="leading-6">
+                    Noida • Greater Noida • Ghaziabad • Delhi NCR  • Mathura  • Agra
+                  </span>
+                </div>
+
+                {/* Timing */}
+                <div className="flex items-center gap-3 text-sm text-slate-400">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <span className="text-xs">
+                      ◷
+                    </span>
+                  </span>
+
+                  <span>
+                    Mon–Sun, 9 AM – 8 PM
+                  </span>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
 
@@ -311,8 +394,6 @@ function Footer() {
             </FooterDropdown>
 
 
-           
-
             {/* QUICK LINKS */}
             <FooterDropdown
               title="Quick Links"
@@ -342,38 +423,104 @@ function Footer() {
             </FooterDropdown>
 
           </div>
-{/* CONTACT */}
-<FooterDropdown
-  title="Contact"
-  open={openSection === "contact"}
-  onClick={() => toggleSection("contact")}
->
-  <div className="space-y-3">
 
-    <a
-      href="tel:+919758927171"
-      className="block text-sm text-slate-400 transition hover:text-blue-400"
-    >
-      +91 9758927171
-    </a>
 
-    <a
-      href="mailto:info@upvcrepair.in"
-      className="block break-all text-sm text-slate-400 transition hover:text-blue-400"
-    >
-      info@UPVCCare.in
-    </a>
+          {/* =================================================
+              MOBILE CONTACT
+          ================================================= */}
+          <div className="lg:hidden">
 
-    <p className="text-sm leading-6 text-slate-400">
-      Noida • Greater Noida • Ghaziabad • Delhi NCR
-    </p>
+            <FooterDropdown
+              title="Contact"
+              open={openSection === "contact"}
+              onClick={() => toggleSection("contact")}
+            >
 
-    <p className="text-sm text-slate-400">
-      Mon–Sun, 9 AM – 8 PM
-    </p>
+              <div className="space-y-3.5">
 
-  </div>
-</FooterDropdown>
+                {/* Phone */}
+                <a
+                  href="tel:+918708238671"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-blue-400"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <Phone
+                      size={16}
+                      strokeWidth={2}
+                    />
+                  </span>
+
+                  <span>
+                    +91 8708238671
+                  </span>
+                </a>
+
+                {/* Email */}
+                <a
+                  href="mailto:daudayalpandey95@gmail.com"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-blue-400"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <Mail
+                      size={16}
+                      strokeWidth={2}
+                    />
+                  </span>
+
+                  <span className="break-all">
+                    daudayalpandey95@gmail.com
+                  </span>
+                </a>
+
+                {/* WhatsApp */}
+                <a
+                  href="https://wa.me/918708238671"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-slate-400 transition hover:text-green-400"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-green-400">
+                    <FaWhatsapp size={19} />
+                  </span>
+
+                  <span>
+                    WhatsApp us
+                  </span>
+                </a>
+
+                {/* Service Area */}
+                <div className="flex items-start gap-3 text-sm text-slate-400">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <MapPin
+                      size={16}
+                      strokeWidth={2}
+                    />
+                  </span>
+
+                  <span className="leading-6">
+                    Noida • Greater Noida • Ghaziabad • Delhi NCR  • Mathura  • Agra
+                  </span>
+                </div>
+
+                {/* Timing */}
+                <div className="flex items-center gap-3 text-sm text-slate-400">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-blue-400">
+                    <span className="text-sm">
+                      ◷
+                    </span>
+                  </span>
+
+                  <span>
+                    Mon–Sun, 9 AM – 8 PM
+                  </span>
+                </div>
+
+              </div>
+
+            </FooterDropdown>
+
+          </div>
+
         </div>
 
 
@@ -407,9 +554,9 @@ function Footer() {
         </div>
 
       </div>
-
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
+

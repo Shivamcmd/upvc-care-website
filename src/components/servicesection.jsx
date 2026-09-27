@@ -1,11 +1,11 @@
 import ServiceCard from "./servicecard"
 
-import photo1 from "../assets/images/photo1.png"
-import photo2 from "../assets/images/photo2.png"
-import photo3 from "../assets/images/photo3.png"
-import photo4 from "../assets/images/photo4.png"
-import photo5 from "../assets/images/photo5.png"
-import photo6 from "../assets/images/photo6.png"
+import photo1 from "../assets/images/winrepair.png"
+import photo2 from "../assets/images/doorrepair.png"
+import photo3 from "../assets/images/install.png"
+import photo4 from "../assets/images/glasschange.png"
+import photo5 from "../assets/images/hardwarechange.png"
+import photo6 from "../assets/images/winclean.png"
 
 const services = [
   {
@@ -93,15 +93,43 @@ function ServicesSection() {
 
         </div>
 
-        {/* Service Cards */}
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <ServiceCard
-              key={service.title}
-              {...service}
-            />
-          ))}
-        </div>
+{/* Service Cards */}
+<div className="mt-8">
+  {/* Mobile: Horizontal Swipe Carousel */}
+  <div
+    className="
+      flex gap-4 overflow-x-auto
+      snap-x snap-mandatory
+      scrollbar-hide
+      sm:hidden
+      -mx-5 px-5
+    "
+  >
+    {services.map((service) => (
+      <div
+        key={service.title}
+        className="
+          w-[72%]
+          min-w-[72%]
+          snap-start
+          shrink-0
+        "
+      >
+        <ServiceCard {...service} />
+      </div>
+    ))}
+  </div>
+
+  {/* Tablet + Desktop */}
+  <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {services.map((service) => (
+      <ServiceCard
+        key={service.title}
+        {...service}
+      />
+    ))}
+  </div>
+</div>
 
         {/* Mobile CTA */}
         <div className="mt-6 sm:hidden">

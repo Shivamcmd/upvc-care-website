@@ -1,6 +1,209 @@
-import { Phone } from "lucide-react"
+
+import { useState } from "react";
+import { Phone } from "lucide-react";
 
 function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    service: "",
+    location: "",
+    problem: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Remove previous status when user starts editing again
+    if (status.message) {
+      setStatus({
+        type: "",
+        message: "",
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { name, phone, service, location, problem } = formData;
+
+    // Required field validation
+    if (!name.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your name.",
+      });
+      return;
+    }
+
+    if (!phone.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your phone number.",
+      });
+      return;
+    }
+
+    // Indian phone number validation
+    const cleanPhone = phone.replace(/\D/g, "");
+
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      setStatus({
+        type: "error",
+        message: "Please enter a valid 10-digit phone number.",
+      });
+      return;
+    }
+
+    if (!service) {
+      setStatus({
+        type: "error",
+        message: "Please select a service.",
+      });
+      return;
+    }
+
+    if (!location.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your location.",
+      });
+      return;
+    }
+
+    if (!problem.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please describe your requirement.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({
+      type: "",
+      message: "",
+    });
+
+    try {
+      // --------------------------------
+      // 1. SEND FORM TO EMAIL
+      // --------------------------------
+
+      const emailFormData = new FormData();
+
+      emailFormData.append(
+        "access_key",
+        "cc86717f-02a0-4097-a059-1693ce41b451"
+      );
+
+      emailFormData.append("subject", `New UPVC Service Request - ${service}`);
+      emailFormData.append("from_name", name);
+
+      emailFormData.append("name", name);
+      emailFormData.append("phone", cleanPhone);
+      emailFormData.append("service", service);
+      emailFormData.append("location", location);
+      emailFormData.append("requirement", problem);
+
+      emailFormData.append(
+        "message",
+        `
+New UPVC Service Request
+
+Name: ${name}
+Phone: ${cleanPhone}
+Service: ${service}
+Location: ${location}
+
+Requirement:
+${problem}
+        `
+      );
+
+      const emailResponse = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          body: emailFormData,
+        }
+      );
+
+      const emailResult = await emailResponse.json();
+
+      if (!emailResult.success) {
+        throw new Error(
+          emailResult.message || "Unable to send the service request."
+        );
+      }
+
+      // --------------------------------
+      // 2. OPEN WHATSAPP
+      // --------------------------------
+
+      const whatsappMessage = `🔧 *New Service Request*
+
+*Name:* ${name}
+*Phone:* ${cleanPhone}
+*Service:* ${service}
+*Location:* ${location}
+
+*Requirement:*
+${problem}
+
+Please contact the customer regarding this service request.`;
+
+      const whatsappNumber = "918708238671";
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        whatsappMessage
+      )}`;
+
+      window.open(whatsappUrl, "_blank");
+
+      // --------------------------------
+      // 3. SUCCESS
+      // --------------------------------
+
+      setStatus({
+        type: "success",
+        message:
+          "Request submitted successfully. We'll get back to you shortly.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        service: "",
+        location: "",
+        problem: "",
+      });
+    } catch (error) {
+      console.error("Service request error:", error);
+
+      setStatus({
+        type: "error",
+        message:
+          "Something went wrong. Please try again or contact us directly on WhatsApp.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -129,7 +332,10 @@ function ContactSection() {
                 </div>
 
                 {/* Form */}
-                <form className="mt-5 space-y-3.5">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-5 space-y-3.5"
+                >
 
                   {/* Name + Phone */}
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -146,6 +352,8 @@ function ContactSection() {
                         id="contact-name"
                         type="text"
                         name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder="Your name"
                         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                       />
@@ -163,7 +371,11 @@ function ContactSection() {
                         id="contact-phone"
                         type="tel"
                         name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
                         placeholder="Phone number"
+                        inputMode="numeric"
+                        maxLength="10"
                         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                       />
                     </div>
@@ -184,7 +396,8 @@ function ContactSection() {
                       <select
                         id="contact-service"
                         name="service"
-                        defaultValue=""
+                        value={formData.service}
+                        onChange={handleChange}
                         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-600 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                       >
                         <option value="" disabled>
@@ -212,6 +425,8 @@ function ContactSection() {
                         id="contact-location"
                         type="text"
                         name="location"
+                        value={formData.location}
+                        onChange={handleChange}
                         placeholder="City / Area"
                         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                       />
@@ -231,22 +446,47 @@ function ContactSection() {
                     <textarea
                       id="contact-problem"
                       name="problem"
+                      value={formData.problem}
+                      onChange={handleChange}
                       rows="3"
                       placeholder="Tell us briefly about the problem..."
                       className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                     />
                   </div>
 
+                  {/* Status Message */}
+                  {status.message && (
+                    <div
+                      className={`rounded-xl px-3 py-2.5 text-xs font-medium ${
+                        status.type === "success"
+                          ? "bg-green-50 text-green-700"
+                          : "bg-red-50 text-red-600"
+                      }`}
+                    >
+                      {status.message}
+                    </div>
+                  )}
+
                   {/* Submit */}
                   <button
                     type="submit"
-                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-600/20 transition hover:bg-blue-700"
+                    disabled={isSubmitting}
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-600/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    Send Service Request
+                    {isSubmitting ? (
+                      <>
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                        Sending Request...
+                      </>
+                    ) : (
+                      <>
+                        Send Service Request
 
-                    <span className="transition-transform group-hover:translate-x-1">
-                      →
-                    </span>
+                        <span className="transition-transform group-hover:translate-x-1">
+                          →
+                        </span>
+                      </>
+                    )}
                   </button>
 
                   <p className="text-center text-[10px] leading-4 text-slate-400">
@@ -262,7 +502,8 @@ function ContactSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default ContactSection
+export default ContactSection;
+

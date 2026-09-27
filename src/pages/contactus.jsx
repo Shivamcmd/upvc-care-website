@@ -1,43 +1,261 @@
+
+import { useState } from "react";
 import {
   Phone,
   Mail,
   MapPin,
-  ArrowRight,
 } from "lucide-react";
 
 import { FaWhatsapp } from "react-icons/fa";
 
 function ContactUs() {
-const contactCards = [
-  {
-    icon: Phone,
-    title: "Call Us",
-    text: "Mon–Sun, 9 AM – 8 PM",
-    value: "+91 9758927171",
-    href: "tel:+919758927171",
-  },
- {
-  icon: FaWhatsapp,
-  title: "WhatsApp",
-  text: "Send photos of the problem",
-  value: "Chat with us",
-  href: "https://wa.me/919758927171",
-},
-  {
-    icon: Mail,
-    title: "Email",
-    text: "For quotes & AMC enquiries",
-    value: "upvcwindowanddoorofficial@gmail.com",
-    href: "mailto:upvcwindowanddoorofficial@gmail.com",
-  },
-  {
-    icon: MapPin,
-    title: "Service Area",
-    text: "Doorstep visits across NCR",
-    value: "Noida • Gr. Noida • Ghaziabad • Delhi",
-    href: null,
-  },
-];
+  const contactCards = [
+    {
+      icon: Phone,
+      title: "Call Us",
+      text: "Mon–Sun, 9 AM – 8 PM",
+      value: "+91 8708238671",
+      href: "tel:+918708238671",
+    },
+
+    {
+      icon: FaWhatsapp,
+      title: "WhatsApp",
+      text: "Send photos of the problem",
+      value: "Chat with us",
+      href: "https://wa.me/918708238671",
+    },
+
+    {
+      icon: Mail,
+      title: "Email",
+      text: "For quotes & AMC enquiries",
+      value: "daudayalpandey95@gmail.com",
+      href: "mailto:daudayalpandey95@gmail.com",
+    },
+
+    {
+      icon: MapPin,
+      title: "Service Area",
+      text: "Doorstep visits across NCR",
+      value: "      Noida • Greater Noida • Ghaziabad • Delhi NCR • Mathura • Agra",
+      href: null,
+    },
+  ];
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    service: "",
+    location: "",
+    problem: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [status, setStatus] = useState({
+    type: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (status.message) {
+      setStatus({
+        type: "",
+        message: "",
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const {
+      name,
+      phone,
+      service,
+      location,
+      problem,
+    } = formData;
+
+    /* -----------------------------
+       VALIDATION
+    ----------------------------- */
+
+    if (!name.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your name.",
+      });
+      return;
+    }
+
+    if (!phone.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your phone number.",
+      });
+      return;
+    }
+
+    const cleanPhone = phone.replace(/\D/g, "");
+
+    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+      setStatus({
+        type: "error",
+        message: "Please enter a valid 10-digit phone number.",
+      });
+      return;
+    }
+
+    if (!service) {
+      setStatus({
+        type: "error",
+        message: "Please select a service.",
+      });
+      return;
+    }
+
+    if (!location.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please enter your location.",
+      });
+      return;
+    }
+
+    if (!problem.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please describe your problem.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    setStatus({
+      type: "",
+      message: "",
+    });
+
+    try {
+      /* -----------------------------
+         SEND TO EMAIL
+      ----------------------------- */
+
+      const emailFormData = new FormData();
+
+      emailFormData.append(
+        "access_key",
+        "cc86717f-02a0-4097-a059-1693ce41b451"
+      );
+
+      emailFormData.append(
+        "subject",
+        `New UPVC Service Request - ${service}`
+      );
+
+      emailFormData.append("from_name", name);
+
+      emailFormData.append("name", name);
+      emailFormData.append("phone", cleanPhone);
+      emailFormData.append("service", service);
+      emailFormData.append("location", location);
+      emailFormData.append("requirement", problem);
+
+      emailFormData.append(
+        "message",
+        `
+New UPVC Service Request
+
+Name: ${name}
+Phone: ${cleanPhone}
+Service: ${service}
+Location: ${location}
+
+Requirement:
+${problem}
+        `
+      );
+
+      const emailResponse = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          body: emailFormData,
+        }
+      );
+
+      const emailResult = await emailResponse.json();
+
+      if (!emailResult.success) {
+        throw new Error(
+          emailResult.message ||
+            "Unable to send the service request."
+        );
+      }
+
+      /* -----------------------------
+         WHATSAPP
+      ----------------------------- */
+
+      const whatsappMessage = `🔧 *New Service Request*
+
+*Name:* ${name}
+*Phone:* ${cleanPhone}
+*Service:* ${service}
+*Location:* ${location}
+
+*Requirement:*
+${problem}
+
+Please contact the customer regarding this service request.`;
+
+      const whatsappNumber = "918708238671";
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        whatsappMessage
+      )}`;
+
+      window.open(whatsappUrl, "_blank");
+
+      /* -----------------------------
+         SUCCESS
+      ----------------------------- */
+
+      setStatus({
+        type: "success",
+        message:
+          "Request submitted successfully. We'll get back to you shortly.",
+      });
+
+      setFormData({
+        name: "",
+        phone: "",
+        service: "",
+        location: "",
+        problem: "",
+      });
+    } catch (error) {
+      console.error("Service request error:", error);
+
+      setStatus({
+        type: "error",
+        message:
+          "Something went wrong. Please try again or contact us directly on WhatsApp.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <main className="bg-white">
@@ -84,7 +302,6 @@ const contactCards = [
 
             </div>
 
-
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-3.5 py-1.5 shadow-sm backdrop-blur">
 
@@ -96,7 +313,6 @@ const contactCards = [
 
             </div>
 
-
             {/* Heading */}
             <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-[54px] lg:leading-[1.08]">
               We’re here to help with
@@ -104,7 +320,6 @@ const contactCards = [
                 your windows & doors.
               </span>
             </h1>
-
 
             {/* Description */}
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
@@ -116,7 +331,6 @@ const contactCards = [
 
         </div>
       </section>
-
 
       {/* =====================================================
           CONTACT CARDS
@@ -135,17 +349,15 @@ const contactCards = [
                   {/* Top accent */}
                   <div className="absolute left-0 top-0 h-1 w-10 rounded-full bg-blue-600 transition-all duration-300 group-hover:w-16" />
 
-
                   <div className="flex items-start gap-4 pt-3">
 
                     {/* Icon */}
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition duration-300 group-hover:bg-blue-600 group-hover:text-white">
-  {(() => {
-    const Icon = card.icon;
-    return <Icon size={22} strokeWidth={2} />;
-  })()}
-</div>
-
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                      {(() => {
+                        const Icon = card.icon;
+                        return <Icon size={22} strokeWidth={2} />;
+                      })()}
+                    </div>
 
                     {/* Text */}
                     <div className="min-w-0">
@@ -206,7 +418,6 @@ const contactCards = [
         </div>
       </section>
 
-
       {/* =====================================================
           CONTACT + FORM
       ===================================================== */}
@@ -218,7 +429,6 @@ const contactCards = [
         <div className="site-container relative">
 
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-
 
             {/* =================================================
                 LEFT CONTENT
@@ -239,14 +449,12 @@ const contactCards = [
                 required service.
               </p>
 
-
               {/* Contact options */}
               <div className="mt-8 space-y-3">
 
-
                 {/* Call */}
                 <a
-                  href="tel:+919758927171"
+                  href="tel:+918708238671"
                   className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
                 >
 
@@ -261,7 +469,7 @@ const contactCards = [
                     </p>
 
                     <p className="mt-1 text-sm text-blue-600">
-                      +91 9758927171
+                      +91 8708238671
                     </p>
 
                   </div>
@@ -272,18 +480,17 @@ const contactCards = [
 
                 </a>
 
-
                 {/* WhatsApp */}
                 <a
-                  href="https://wa.me/919758927171"
+                  href="https://wa.me/918708238671"
                   target="_blank"
                   rel="noreferrer"
                   className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
                 >
 
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 transition group-hover:bg-green-500 group-hover:text-white">
-  <FaWhatsapp size={24} />
-</div>
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 transition group-hover:bg-green-500 group-hover:text-white">
+                    <FaWhatsapp size={24} />
+                  </div>
 
                   <div className="min-w-0">
 
@@ -303,13 +510,12 @@ const contactCards = [
 
                 </a>
 
-
                 {/* Service Area */}
                 <div className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
 
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-  <MapPin size={21} strokeWidth={2} />
-</div>
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <MapPin size={21} strokeWidth={2} />
+                  </div>
 
                   <div>
 
@@ -318,7 +524,7 @@ const contactCards = [
                     </p>
 
                     <p className="mt-1 text-sm leading-5 text-slate-600">
-                      Noida, Greater Noida, Ghaziabad & Delhi
+                            Noida • Greater Noida • Ghaziabad • Delhi NCR • Mathura • Agra
                     </p>
 
                   </div>
@@ -328,7 +534,6 @@ const contactCards = [
               </div>
 
             </div>
-
 
             {/* =================================================
                 FORM
@@ -360,9 +565,8 @@ const contactCards = [
 
               </div>
 
-
               <form
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className="space-y-5"
               >
 
@@ -371,28 +575,43 @@ const contactCards = [
 
                   <div>
 
-                    <label className="mb-2 block text-sm font-semibold text-slate-800">
+                    <label
+                      htmlFor="contact-name"
+                      className="mb-2 block text-sm font-semibold text-slate-800"
+                    >
                       Your Name
                     </label>
 
                     <input
+                      id="contact-name"
                       type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       placeholder="Enter your name"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                     />
 
                   </div>
 
-
                   <div>
 
-                    <label className="mb-2 block text-sm font-semibold text-slate-800">
+                    <label
+                      htmlFor="contact-phone"
+                      className="mb-2 block text-sm font-semibold text-slate-800"
+                    >
                       Phone Number
                     </label>
 
                     <input
+                      id="contact-phone"
                       type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
                       placeholder="Enter phone number"
+                      inputMode="numeric"
+                      maxLength="10"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                     />
 
@@ -400,16 +619,21 @@ const contactCards = [
 
                 </div>
 
-
                 {/* Service */}
                 <div>
 
-                  <label className="mb-2 block text-sm font-semibold text-slate-800">
+                  <label
+                    htmlFor="contact-service"
+                    className="mb-2 block text-sm font-semibold text-slate-800"
+                  >
                     Service Required
                   </label>
 
                   <select
-                    defaultValue=""
+                    id="contact-service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
                     className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                   >
 
@@ -445,31 +669,43 @@ const contactCards = [
 
                 </div>
 
-
                 {/* Location */}
                 <div>
 
-                  <label className="mb-2 block text-sm font-semibold text-slate-800">
+                  <label
+                    htmlFor="contact-location"
+                    className="mb-2 block text-sm font-semibold text-slate-800"
+                  >
                     Your Location
                   </label>
 
                   <input
+                    id="contact-location"
                     type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
                     placeholder="Enter your area / locality"
                     className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
                   />
 
                 </div>
 
-
                 {/* Problem */}
                 <div>
 
-                  <label className="mb-2 block text-sm font-semibold text-slate-800">
+                  <label
+                    htmlFor="contact-problem"
+                    className="mb-2 block text-sm font-semibold text-slate-800"
+                  >
                     Describe the Problem
                   </label>
 
                   <textarea
+                    id="contact-problem"
+                    name="problem"
+                    value={formData.problem}
+                    onChange={handleChange}
                     rows="5"
                     placeholder="Example: Window is not closing properly..."
                     className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
@@ -477,18 +713,39 @@ const contactCards = [
 
                 </div>
 
+                {/* Status Message */}
+                {status.message && (
+                  <div
+                    className={`rounded-xl px-4 py-3 text-sm font-medium ${
+                      status.type === "success"
+                        ? "bg-green-50 text-green-700"
+                        : "bg-red-50 text-red-600"
+                    }`}
+                  >
+                    {status.message}
+                  </div>
+                )}
 
                 {/* Button */}
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition duration-200 hover:bg-blue-700 hover:shadow-md"
+                  disabled={isSubmitting}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition duration-200 hover:bg-blue-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Send Service Request →
+                  {isSubmitting ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Sending Request...
+                    </>
+                  ) : (
+                    <>
+                      Send Service Request →
+                    </>
+                  )}
                 </button>
 
-
                 <p className="text-center text-xs leading-5 text-slate-400">
-                  We currently respond to enquiries by phone or WhatsApp.
+                  Your details are used only to respond to your service enquiry.
                 </p>
 
               </form>
@@ -499,7 +756,6 @@ const contactCards = [
 
         </div>
       </section>
-
 
       {/* =====================================================
           BOTTOM CTA
@@ -528,7 +784,6 @@ const contactCards = [
               </p>
 
             </div>
-
 
             <div className="flex flex-wrap gap-3">
 
@@ -561,4 +816,3 @@ const contactCards = [
 }
 
 export default ContactUs;
-

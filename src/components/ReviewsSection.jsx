@@ -71,53 +71,133 @@ function ReviewsSection() {
             </div>
           </div>
         </div>
+{/* Reviews */}
+<div className="mt-9">
+  {/* Mobile: Horizontal Swipe */}
+  <div
+    className="
+      flex gap-4 overflow-x-auto
+      snap-x snap-mandatory
+      scrollbar-hide
+      sm:hidden
+      -mx-5 px-5
+    "
+  >
+    {reviews.map((review) => (
+      <article
+        key={`${review.name}-${review.location}`}
+        className="
+          w-[72%]
+          min-w-[72%]
+          shrink-0
+          snap-start
+          flex flex-col
+          rounded-2xl
+          border border-slate-200
+          bg-white
+          p-4
+          shadow-sm
+        "
+      >
+        {/* Top */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex gap-0.5 text-xs text-amber-500">
+            ★★★★★
+          </div>
 
-        {/* Reviews */}
-        <div className="mt-9 grid gap-5 lg:grid-cols-3">
-          {reviews.map((review) => (
-            <article
-              key={`${review.name}-${review.location}`}
-              className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg sm:p-6"
-            >
-              {/* Top */}
-              <div className="flex items-center justify-between">
-                <div className="flex gap-0.5 text-sm text-amber-500">
-                  ★★★★★
-                </div>
-
-                <span className="text-xs font-medium text-slate-400">
-                  Customer review
-                </span>
-              </div>
-
-              {/* Review */}
-              <blockquote className="mt-5 flex-1 text-sm leading-6 text-slate-600">
-                “{review.text}”
-              </blockquote>
-
-              {/* Customer */}
-              <div className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
-                  {review.initials}
-                </div>
-
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-bold text-slate-900">
-                    {review.name}
-                  </p>
-
-                  <p className="mt-0.5 text-xs text-slate-500">
-                    {review.location}
-                  </p>
-                </div>
-
-                <span className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-600">
-                  ✓
-                </span>
-              </div>
-            </article>
-          ))}
+          <span className="text-[10px] font-medium text-slate-400">
+            Review
+          </span>
         </div>
+
+        {/* Review */}
+        <blockquote className="mt-4 flex-1 text-sm leading-5 text-slate-600">
+          “{review.text}”
+        </blockquote>
+
+        {/* Customer */}
+        <div className="mt-5 flex items-center gap-2.5 border-t border-slate-100 pt-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">
+            {review.initials}
+          </div>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-bold text-slate-900">
+              {review.name}
+            </p>
+
+            <p className="mt-0.5 text-[11px] text-slate-500">
+              {review.location}
+            </p>
+          </div>
+
+          <span className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-50 text-[10px] font-bold text-green-600">
+            ✓
+          </span>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  {/* Tablet + Desktop */}
+  <div className="hidden gap-5 sm:grid lg:grid-cols-3">
+    {reviews.map((review) => (
+      <article
+        key={`${review.name}-${review.location}`}
+        className="
+          group flex h-full flex-col
+          rounded-2xl
+          border border-slate-200
+          bg-white
+          p-5
+          shadow-sm
+          transition duration-300
+          hover:-translate-y-1
+          hover:border-blue-200
+          hover:shadow-lg
+          sm:p-6
+        "
+      >
+        {/* Top */}
+        <div className="flex items-center justify-between">
+          <div className="flex gap-0.5 text-sm text-amber-500">
+            ★★★★★
+          </div>
+
+          <span className="text-xs font-medium text-slate-400">
+            Customer review
+          </span>
+        </div>
+
+        {/* Review */}
+        <blockquote className="mt-5 flex-1 text-sm leading-6 text-slate-600">
+          “{review.text}”
+        </blockquote>
+
+        {/* Customer */}
+        <div className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-4">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+            {review.initials}
+          </div>
+
+          <div className="min-w-0">
+            <p className="truncate text-sm font-bold text-slate-900">
+              {review.name}
+            </p>
+
+            <p className="mt-0.5 text-xs text-slate-500">
+              {review.location}
+            </p>
+          </div>
+
+          <span className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-600">
+            ✓
+          </span>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
 
         {/* Bottom CTA */}
         <div className="mt-8 flex flex-col items-center justify-between gap-3 rounded-xl border border-blue-100 bg-white px-5 py-4 sm:flex-row sm:px-6">

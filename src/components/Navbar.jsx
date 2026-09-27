@@ -245,7 +245,7 @@ const goToSection = (sectionId) => {
 </button>
 
        <a
-  href="tel:+919758927171"
+  href="tel:+918708238671"
   className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700"
 >
   <svg
@@ -408,42 +408,7 @@ const goToSection = (sectionId) => {
   Contact Us
 </Link>
 
-            {/* Mobile CTA */}
-            <div className="mt-4 grid grid-cols-2 gap-3">
-
-         <button
-  type="button"
-  onClick={() => goToSection("contact")}
-  className="rounded-lg border border-blue-200 px-4 py-3 text-center text-sm font-bold text-blue-700"
->
-  Get a Quote
-</button>
-
-             <a
-  href="tel:+919758927171"
-  onClick={closeMobileMenu}
-  className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-bold text-white"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    className="h-4 w-4"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.09l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.21.38 12.035 12.035 0 0 1-7.409-7.409 1.125 1.125 0 0 1 .38-1.21l1.293-.97c.363-.272.53-.738.417-1.173L6.16 3.837A1.125 1.125 0 0 0 5.07 2.985H3.75A2.25 2.25 0 0 0 1.5 5.235v1.515Z"
-    />
-  </svg>
-
-  <span>Call Now</span>
-</a>
-
-            </div>
+       
 
           </nav>
         </div>

@@ -38,7 +38,7 @@ function UPVCHardwareReplacement() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="/src/assets/images/hardwarechange.png"
+              src="./images/hardwarechange.png"
               alt="UPVC window and door hardware replacement"
               className="aspect-[4/3] w-full object-cover"
             />

@@ -45,7 +45,7 @@ function UPVCWindowInstallation() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="../../assets/images/install.png"
+              src="./images/winrepair.png"
               alt="UPVC window installation"
               className="aspect-[4/3] w-full object-cover"
             />

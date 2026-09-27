@@ -1,4 +1,4 @@
-import photo7 from "../assets/images/photo7.png"
+import photo7 from "../pages/services/images/randomphoto.png"
 const benefits = [
   {
     number: "01",

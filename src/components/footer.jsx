@@ -81,7 +81,7 @@ const quickLinks = [
   },
   {
     label: "Get a Quote",
-    href: "/contact",
+    href: "#contact",
   },
 ];
 

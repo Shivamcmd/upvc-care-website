@@ -189,7 +189,7 @@ function AboutUs() {
               <div className="overflow-hidden rounded-[28px] border-8 border-white bg-white shadow-xl">
 
                 <img
-                  src="/src/assets/about/abouttwo.png"
+                  src="../assets/about/abouttwo.png"
                   alt="UPVC window and door technician providing repair service"
                   className="aspect-[4/3] w-full object-cover"
                 />

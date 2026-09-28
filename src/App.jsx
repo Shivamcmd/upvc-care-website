@@ -5,7 +5,7 @@ import Home from "./pages/home"
 
 import UPVCWindowRepair from "./pages/services/UPVCWindowRepair"
 import UPVCDoorRepair from "./pages/services/UPVCDoorRepair"
-import UPVCWindowInstallation from "./pages/services/─ UPVCWindowInstallation"
+import UPVCWindowInstallation from "./pages/services/UPVCWindowInstallation"
 import UPVCGlassReplacement from "./pages/services/UPVCGlassReplacement"
 import UPVCHardwareReplacement from "./pages/services/UPVCHardwareReplacement"
 import UPVCMaintenance from "./pages/services/UPVCMaintenance"

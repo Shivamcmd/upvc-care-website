@@ -1,3 +1,5 @@
+import wininstall from "../../assets/images/installation.png";
+
 function UPVCWindowInstallation() {
   const benefits = [
     "New UPVC window installation",
@@ -45,7 +47,7 @@ function UPVCWindowInstallation() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="./images/winrepair.png"
+               src={wininstall}
               alt="UPVC window installation"
               className="aspect-[4/3] w-full object-cover"
             />

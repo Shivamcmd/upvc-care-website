@@ -2,7 +2,7 @@ import ServiceCard from "./servicecard"
 
 import photo1 from "../assets/images/winrepair.png"
 import photo2 from "../assets/images/doorrepair.png"
-import photo3 from "../assets/images/install.png"
+import photo3 from "../assets/images/installation.png"
 import photo4 from "../assets/images/glasschange.png"
 import photo5 from "../assets/images/hardwarechange.png"
 import photo6 from "../assets/images/winclean.png"

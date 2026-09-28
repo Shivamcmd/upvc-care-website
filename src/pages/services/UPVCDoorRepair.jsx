@@ -1,3 +1,5 @@
+import doorrepair from "../../assets/images/doorrepair.png"
+
 function UPVCDoorRepair() {
   const issues = [
     "UPVC door not closing properly",
@@ -49,7 +51,7 @@ function UPVCDoorRepair() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="./images/doorrepair.png"
+              src={doorrepair}
               alt="UPVC door repair service"
               className="aspect-[4/3] w-full object-cover"
             />

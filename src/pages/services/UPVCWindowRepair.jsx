@@ -1,3 +1,5 @@
+import winrepair from "../../assets/images/winrepair.png";
+
 function UPVCwindowRepair() {
   const problems = [
     "UPVC window not closing properly",
@@ -53,7 +55,7 @@ function UPVCwindowRepair() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
             <img
-              src="./images/winrepair.png"
+              src={winrepair}
               alt="UPVC door repair service"
               className="aspect-[4/3] w-full object-cover"
             />

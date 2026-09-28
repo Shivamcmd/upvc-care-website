@@ -1,3 +1,5 @@
+import hardwarechange from "../../assets/images/hardwarechange.png";
+
 function UPVCHardwareReplacement() {
   const hardware = [
     "UPVC window handles",
@@ -38,7 +40,7 @@ function UPVCHardwareReplacement() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <img
-              src="./images/hardwarechange.png"
+              src={hardwarechange}
               alt="UPVC window and door hardware replacement"
               className="aspect-[4/3] w-full object-cover"
             />

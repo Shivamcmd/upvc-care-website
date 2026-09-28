@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import abouttwo from "../assets/about/abouttwo.png";
+import aboutone from "../assets/about/aboutone.png"
 
 function AboutUs() {
   const services = [
@@ -189,7 +191,7 @@ function AboutUs() {
               <div className="overflow-hidden rounded-[28px] border-8 border-white bg-white shadow-xl">
 
                 <img
-                  src="../assets/about/abouttwo.png"
+                  src={abouttwo}
                   alt="UPVC window and door technician providing repair service"
                   className="aspect-[4/3] w-full object-cover"
                 />
@@ -245,7 +247,7 @@ function AboutUs() {
               <div className="overflow-hidden rounded-3xl bg-slate-100">
 
                 <img
-                  src="/src/assets/about/aboutone.png"
+                  src={aboutone}
                   alt="Technician working on a UPVC window"
                   className="aspect-[4/3] w-full object-cover"
                 />

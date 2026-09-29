@@ -343,7 +343,7 @@ function Footer() {
                   </span>
 
                   <span className="leading-6">
-                    Noida • Greater Noida • Ghaziabad • Delhi NCR  • Mathura  • Agra
+                    Noida • Greater Noida • Ghaziabad • Delhi NCR  • Mathura  • Agra • Palwal
                   </span>
                 </div>
 

@@ -546,7 +546,7 @@ function Footer() {
               to="/terms"
               className="text-xs text-slate-500 transition hover:text-slate-300"
             >
-              Terms
+              Terms & Conditions
             </Link>
 
           </div>
